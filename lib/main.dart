@@ -1,3 +1,4 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,55 +10,68 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       home: HomePage(),
     );
   }
 }
 
+class CounterCubit extends Cubit<int> {
+  CounterCubit({this.initialData = 65}) : super(initialData);
+
+  int initialData = 0;
+  void increment() => emit(state + 1);
+  void decrement() => emit(state - 1);
+}
+
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-  Stream<int> numberStream() async* {
-    for (int i = 1; i <= 10; i++) {
-      await Future.delayed(const Duration(seconds: 1));
-      yield i;
-    }
-  }
+  HomePage({super.key});
+
+  final CounterCubit myCounter = CounterCubit();
 
   @override
   Widget build(BuildContext context) {
-    print("REBUILD");
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Streams App"),
-        ),
-        body: StreamBuilder<int>(
-          stream: numberStream(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (snapshot.hasError) {
-              return Center(
-                child: Text("Error: ${snapshot.error}"),
-              );
-            } else if (snapshot.hasData) {
-              return Center(
-                child: Text(
-                  "${snapshot.data}",
-                  style: TextStyle(fontSize: 50),
-                ),
-              );
-            } else {
-              return Center(
-                child: Text(
-                  "No Data",
-                  style: TextStyle(fontSize: 50),
-                ),
-              );
-            }
-          },
-        ));
+      appBar: AppBar(
+        backgroundColor: Colors.pink[300],
+        title:const Text("Cubit Apps"),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          StreamBuilder<int>(
+              stream: myCounter.stream,
+              initialData: myCounter.initialData,
+              builder: (context, snapshot) {
+                return Center(
+                  child: Text(
+                    "${snapshot.data}",
+                    style: const TextStyle(fontSize: 50),
+                  ),
+                );
+              }),
+          const SizedBox(
+            height: 20.0,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              IconButton(
+                icon: Icon(Icons.remove),
+                onPressed: () {
+                  myCounter.decrement();
+                },
+              ),
+              IconButton(
+                icon: Icon(Icons.add),
+                onPressed: () {
+                  myCounter.increment();
+                },
+              ),
+            ],
+          )
+        ],
+      ),
+    );
   }
 }

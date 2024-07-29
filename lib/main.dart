@@ -1,7 +1,7 @@
-import 'package:bloc/bloc.dart';
+import 'package:bloc_flutter/pages/home.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main(){
   runApp(const MyApp());
 }
 
@@ -10,99 +10,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return   MaterialApp(
       home: HomePage(),
-    );
-  }
-}
-
-class CounterCubit extends Cubit<int> {
-  CounterCubit({this.initialData = 0}) : super(initialData);
-
-  int initialData = 0;
-  int? current;
-  int? next; 
-
-  void increment() {
-    emit(state + 1);
-  }
-
-  void decrement() {
-    emit(state - 1);
-  }
-  // Observer
-  // Memantau Perubahan (onChange)
-  // error (onError)
-
-  @override
-  void onChange(Change<int>  change){
-    super.onChange(change);
-    current = change.currentState;
-    next = change.nextState;
-    print(change);
-  }
-}
-
-class HomePage extends StatelessWidget {
-  HomePage({super.key});
-
-  final CounterCubit myCounter = CounterCubit();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.pink[300],
-        title: const Text("Bloc Apps"),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          StreamBuilder<int>(
-              stream: myCounter.stream,
-              initialData: myCounter.initialData,
-              builder: (context, snapshot) {
-                return Center(
-                  child: Column(
-                    children: [
-                      Text(
-                        "${snapshot.data}",
-                        style: const TextStyle(fontSize: 50),
-                      ),
-                      Text(
-                        "Current : ${myCounter.current}",
-                        style: const TextStyle(fontSize: 50),
-                      ),
-                      Text(
-                        "Next : ${myCounter.next}",
-                        style: const TextStyle(fontSize: 50),
-                      ),
-                    ],
-                  ),
-                );
-              }),
-          const SizedBox(
-            height: 20.0,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              IconButton(
-                icon: Icon(Icons.remove),
-                onPressed: () {
-                  myCounter.decrement();
-                },
-              ),
-              IconButton(
-                icon: Icon(Icons.add),
-                onPressed: () {
-                  myCounter.increment();
-                },
-              ),
-            ],
-          )
-        ],
-      ),
     );
   }
 }

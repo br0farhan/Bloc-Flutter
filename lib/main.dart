@@ -17,11 +17,30 @@ class MyApp extends StatelessWidget {
 }
 
 class CounterCubit extends Cubit<int> {
-  CounterCubit({this.initialData = 65}) : super(initialData);
+  CounterCubit({this.initialData = 0}) : super(initialData);
 
   int initialData = 0;
-  void increment() => emit(state + 1);
-  void decrement() => emit(state - 1);
+  int? current;
+  int? next; 
+
+  void increment() {
+    emit(state + 1);
+  }
+
+  void decrement() {
+    emit(state - 1);
+  }
+  // Observer
+  // Memantau Perubahan (onChange)
+  // error (onError)
+
+  @override
+  void onChange(Change<int>  change){
+    super.onChange(change);
+    current = change.currentState;
+    next = change.nextState;
+    print(change);
+  }
 }
 
 class HomePage extends StatelessWidget {
@@ -34,7 +53,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.pink[300],
-        title:const Text("Cubit Apps"),
+        title: const Text("Bloc Apps"),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -44,9 +63,21 @@ class HomePage extends StatelessWidget {
               initialData: myCounter.initialData,
               builder: (context, snapshot) {
                 return Center(
-                  child: Text(
-                    "${snapshot.data}",
-                    style: const TextStyle(fontSize: 50),
+                  child: Column(
+                    children: [
+                      Text(
+                        "${snapshot.data}",
+                        style: const TextStyle(fontSize: 50),
+                      ),
+                      Text(
+                        "Current : ${myCounter.current}",
+                        style: const TextStyle(fontSize: 50),
+                      ),
+                      Text(
+                        "Next : ${myCounter.next}",
+                        style: const TextStyle(fontSize: 50),
+                      ),
+                    ],
                   ),
                 );
               }),

@@ -11,27 +11,37 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.orange,
-        title: const Text("Bloc Builder"),
+        title: const Text("Bloc Listener"),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            BlocBuilder<Counter, int>(
-              bloc: myCounter,
-              buildWhen: (previous, current) {
-                if(current % 2 == 1){
+            BlocListener<Counter, int>(
+              listener: (context, state) {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(
+                      const SnackBar(
+                        duration: Duration(seconds: 1),
+                        content: Text("Dijalankan")));
+              },
+              listenWhen: (previous, current) {
+                if(current == 10){
                   return true;
                 }else{
                   return false;
                 }
               },
-              builder: (context, state) {
-                return Text(
-                  "$state",
-                  style: const TextStyle(fontSize: 50),
-                );
-              },
+              bloc: myCounter,
+              child: BlocBuilder<Counter, int>(
+                bloc: myCounter,
+                builder: (context, state) {
+                  return Text(
+                    "$state",
+                    style: const TextStyle(fontSize: 50),
+                  );
+                },
+              ),
             ),
             const SizedBox(
               height: 20.0,

@@ -1,5 +1,6 @@
 import 'package:bloc_flutter/bloc/counter.dart';
 import 'package:bloc_flutter/pages/data_widget.dart';
+import 'package:bloc_flutter/pages/other.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,10 +12,26 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     Counter myCounter = BlocProvider.of<Counter>(context);
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.blue,
+          child: const Icon(
+            Icons.forward,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) {
+                return BlocProvider.value(
+                  value: myCounter,
+                  child: const OtherPages(),
+                );
+              },
+            ));
+          }),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 0, 104, 189),
         title: const Text(
-          "Bloc Provider",
+          "Bloc Provider Value",
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -41,7 +58,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ),
-              DataWidget(),
+              const DataWidget(),
               Material(
                 color: Colors.green,
                 borderRadius: BorderRadius.circular(15),

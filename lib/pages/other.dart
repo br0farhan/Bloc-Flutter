@@ -8,23 +8,22 @@ class OtherPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Counter counter = context.read<Counter>();
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        title: Text("Other Pages"),
+        title: const Text("Other Pages"),
       ),
-      body:  Center(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             BlocBuilder<Counter, int>(
-              bloc: counter,
-              builder: (context, state) {
-                return Text("${state}", 
-                style: TextStyle(
-                  fontSize: 50
-                ),);
-              }
-            )
+                bloc: counter,
+                builder: (context, state) {
+                  return Text(
+                    "$state",
+                    style: const TextStyle(fontSize: 50),
+                  );
+                })
           ],
         ),
       ),

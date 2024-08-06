@@ -13,10 +13,10 @@ class HomePages extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.orange,
-        title: const Text("Multi Bloc Provider"),
+        title: const Text("Multi Bloc Listener"),
       ),
       floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.switch_access_shortcut),
+          child: const Icon(Icons.switch_access_shortcut),
           onPressed: () {
             myTheme.changeTheme();
           }),
@@ -24,14 +24,49 @@ class HomePages extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            BlocBuilder<CounterBloc, int>(
-              bloc: myCounter,
-              builder: (context, state) {
-                return Text(
-                  "$state",
-                  style: TextStyle(fontSize: 50),
-                );
-              },
+            MultiBlocListener(
+              listeners: [
+                BlocListener<CounterBloc, int>(
+                  listenWhen: (previous, current) {
+                    if (current > 10) {
+                      return true;
+                    }
+                    return false;
+                  },
+                  listener: (context, state) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Datanya lebih dari 10"),
+                      ),
+                    );
+                  },
+                ),
+                BlocListener<ThemeBloc, bool>(
+                  listenWhen: (previous, current) {
+                    if (current == false) {
+                      return true;
+                    }
+                    return false;
+                  },
+                  listener: (context, state) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        duration: Duration(seconds: 1),
+                        content: Text("Theme is Dark"),
+                      ),
+                    );
+                  },
+                )
+              ],
+              child: BlocBuilder<CounterBloc, int>(
+                bloc: myCounter,
+                builder: (context, state) {
+                  return Text(
+                    "$state",
+                    style: const TextStyle(fontSize: 50),
+                  );
+                },
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

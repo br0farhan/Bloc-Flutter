@@ -1,10 +1,10 @@
-import 'package:bloc_flutter/bloc/user.dart';
-import 'package:bloc_flutter/pages/home.dart';
+import 'package:bloc_flutter/bloc/counter.dart';
+import 'package:bloc_flutter/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -14,8 +14,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: BlocProvider(
-        create: (context) => UserBloc(),
-        child: const  HomePage(),
+        create: (context) => CounterBloc(),
+        child: const HomePage(),
       ),
     );
   }

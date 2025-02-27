@@ -1,51 +1,50 @@
-import 'package:bloc_flutter/features/basic/basic_pages.dart';
-import 'package:bloc_flutter/home/comingsoon.dart';
+import 'package:bloc_flutter/features/basic/counter/presentation/blocs/counter.dart';
+import 'package:bloc_flutter/features/basic/counter/presentation/pages/counter_page.dart';
+import 'package:bloc_flutter/features/basic/pattern/presentation/pages/pattern_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Bloc Events
-abstract class CategoryEvent {}
+abstract class CategoryBasicEvent {}
 
-class LoadCategories extends CategoryEvent {}
+class LoadCategories extends CategoryBasicEvent {}
 
 // Bloc States
-abstract class CategoryState {}
+abstract class CategoryBasicState {}
 
-class CategoryLoading extends CategoryState {}
+class CategoryLoading extends CategoryBasicState {}
 
-class CategoryLoaded extends CategoryState {
+class CategoryLoaded extends CategoryBasicState {
   final List<String> categories;
   CategoryLoaded(this.categories);
 }
 
 // Bloc
-class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
-  CategoryBloc() : super(CategoryLoading()) {
+class CategoryBasicBloc extends Bloc<CategoryBasicEvent, CategoryBasicState> {
+  CategoryBasicBloc() : super(CategoryLoading()) {
     on<LoadCategories>((event, emit) async {
       // Simulate fetching categories
       await Future.delayed(const Duration(seconds: 1)); // Tunggu 1 detik
       emit(CategoryLoaded([
-        'Basic',
-        'Business',
-        'Health',
-        'Education',
-        'Sports',
-        'Entertainment'
+        'Counter',
+        'Pattern',
       ]));
     });
   }
 }
 
-// UI Home
-class HomePage extends StatelessWidget {
+class BasicPages extends StatelessWidget {
+  const BasicPages({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Home - Categories')),
+      appBar: AppBar(
+        title: const Text('Basic Pages'),
+      ),
       body: BlocProvider(
-        create: (context) => CategoryBloc()..add(LoadCategories()),
-        child:
-         BlocBuilder<CategoryBloc, CategoryState>(
+        create: (context) => CategoryBasicBloc()..add(LoadCategories()),
+        child: BlocBuilder<CategoryBasicBloc, CategoryBasicState>(
           builder: (context, state) {
             if (state is CategoryLoading) {
               return const Center(child: CircularProgressIndicator());
@@ -64,22 +63,24 @@ class HomePage extends StatelessWidget {
                       String category = state.categories[index];
                       Widget page;
                       switch (category) {
-                        case 'Basic':
-                          page = const BasicPages();
+                        case 'Counter':
+                          page = BlocProvider(
+                            create: (context) => CounterBloc(),
+                            child: const CounterPage(),
+                          );
                           break;
-                        case 'Cooming Soon':
-                          page = const Comingsoon(category: 'Coming Soon',);
+                        case 'Pattern':
+                          page = const PatternPage();
                           break;
                         default:
-                          page = Comingsoon(category: category);
+                          page = const PatternPage();
                       }
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => page),
                       );
                     },
-                    child:
-                     Card(
+                    child: Card(
                       elevation: 4,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -102,11 +103,4 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: HomePage(),
-  ));
 }

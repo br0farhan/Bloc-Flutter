@@ -25,6 +25,7 @@ class ContactPatternBloc
             'Wika Salim', 'assets/icons/ic_woman3.png', 'Girls'),
         ContactPatternModel(
             'Melly 3 Gp', 'assets/icons/ic_woman4.png', 'Girls'),
+            
       ];
 
       if (_contacts.isEmpty) {

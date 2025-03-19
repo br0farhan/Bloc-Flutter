@@ -19,7 +19,6 @@ class CounterPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Builder(builder: (context) {
-    
               CounterBloc myCounter = context.watch<CounterBloc>();
               return Text(
                 "${myCounter.state}",

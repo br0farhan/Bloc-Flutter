@@ -1,6 +1,7 @@
 import 'package:bloc_flutter/features/basic/counter/presentation/blocs/counter.dart';
 import 'package:bloc_flutter/features/basic/counter/presentation/pages/counter_page.dart';
 import 'package:bloc_flutter/features/basic/pattern/presentation/pages/pattern_page.dart';
+import 'package:bloc_flutter/features/basic/stream/stream.pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,6 +29,7 @@ class CategoryBasicBloc extends Bloc<CategoryBasicEvent, CategoryBasicState> {
       emit(CategoryLoaded([
         'Counter',
         'Pattern',
+        'Stream',
       ]));
     });
   }
@@ -68,6 +70,9 @@ class BasicPages extends StatelessWidget {
                             create: (context) => CounterBloc(),
                             child: const CounterPage(),
                           );
+                          break;
+                        case 'Stream':
+                          page = const StreamPages();
                           break;
                         case 'Pattern':
                           page = const PatternPage();

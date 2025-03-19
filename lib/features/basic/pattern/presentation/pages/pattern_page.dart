@@ -10,27 +10,27 @@ class PatternPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Pattern Page'),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.message),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => const ContactPage(),
+      body: Column(
+        children: [
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
+            child: Column(
+              children: [
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const ContactPage(),
+                        ),
+                      );
+                    },
+                    child: const Text("List Contact")),
+              ],
             ),
-          );
-        },
-      ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'This is the chatting Homepage',
-              style: TextStyle(fontSize: 24),
-            ),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }

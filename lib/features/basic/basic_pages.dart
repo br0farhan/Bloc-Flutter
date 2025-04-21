@@ -1,3 +1,4 @@
+import 'package:bloc_flutter/features/basic/Bloc%20Builder/pages/blocBulider_basic.dart';
 import 'package:bloc_flutter/features/basic/counter/presentation/blocs/counter.dart';
 import 'package:bloc_flutter/features/basic/counter/presentation/pages/counter_page.dart';
 import 'package:bloc_flutter/features/basic/pattern/presentation/pages/pattern_page.dart';
@@ -30,6 +31,7 @@ class CategoryBasicBloc extends Bloc<CategoryBasicEvent, CategoryBasicState> {
         'Counter',
         'Pattern',
         'Stream',
+        'Bloc Builder',
       ]));
     });
   }
@@ -77,8 +79,11 @@ class BasicPages extends StatelessWidget {
                         case 'Pattern':
                           page = const PatternPage();
                           break;
+                        case 'Bloc Builder':
+                        page =  BlocbuliderBasic();
+                          break;
                         default:
-                          page = const PatternPage();
+                          page = const BasicPages();
                       }
                       Navigator.push(
                         context,

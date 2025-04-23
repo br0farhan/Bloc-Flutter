@@ -1,4 +1,6 @@
-import 'package:bloc_flutter/features/basic/Bloc%20Builder/pages/blocBulider_basic.dart';
+import 'package:bloc_flutter/features/basic/Bloc%20Builder/page/blocBulider_basic.dart';
+import 'package:bloc_flutter/features/basic/Bloc%20Consumer/page/blocConsumer_basic.dart';
+import 'package:bloc_flutter/features/basic/Bloc%20Listener/page/blocListener_basic.dart';
 import 'package:bloc_flutter/features/basic/counter/presentation/blocs/counter.dart';
 import 'package:bloc_flutter/features/basic/counter/presentation/pages/counter_page.dart';
 import 'package:bloc_flutter/features/basic/pattern/presentation/pages/pattern_page.dart';
@@ -32,6 +34,8 @@ class CategoryBasicBloc extends Bloc<CategoryBasicEvent, CategoryBasicState> {
         'Pattern',
         'Stream',
         'Bloc Builder',
+        'Bloc Listener',
+        'Bloc Consumer'
       ]));
     });
   }
@@ -80,7 +84,13 @@ class BasicPages extends StatelessWidget {
                           page = const PatternPage();
                           break;
                         case 'Bloc Builder':
-                        page =  BlocbuliderBasic();
+                          page = BlocbuliderBasic();
+                          break;
+                        case 'Bloc Listener':
+                          page = BlocListenerBasic();
+                          break;
+                        case 'Bloc Consumer':
+                          page = BlocconsumerBasic();
                           break;
                         default:
                           page = const BasicPages();

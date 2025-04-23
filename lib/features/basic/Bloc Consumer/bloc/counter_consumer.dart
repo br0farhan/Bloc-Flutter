@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 
-class Counter extends Cubit<int> {
-  Counter({this.init = 0}) : super(init);
+class CounterConsumer extends Cubit<int> {
+  CounterConsumer({this.init = 0}) : super(init);
 
   int init;
 
@@ -18,5 +18,5 @@ class Counter extends Cubit<int> {
   void onError(Object error, StackTrace stackTrace) {
     super.onError(error, stackTrace);
     print(error);
-  } 
+  }
 }

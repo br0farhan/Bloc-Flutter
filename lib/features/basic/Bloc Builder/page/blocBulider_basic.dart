@@ -1,15 +1,15 @@
-import 'package:bloc_flutter/features/basic/Bloc%20Builder/bloc/counter.dart';
+import 'package:bloc_flutter/features/basic/Bloc%20Builder/bloc/counter_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BlocbuliderBasic extends StatelessWidget {
-  Counter counter = Counter();
+  CounterBuilder counter = CounterBuilder();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("bLoc bulider basic"),
+        title: const Text("bLoc bulider basic"),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -31,14 +31,6 @@ class BlocbuliderBasic extends StatelessWidget {
               }
             },
           ),
-        
-        //  StreamBuilder(
-        //   initialData: counter.init,
-        //   stream: counter.stream, builder: (context, snapshot){
-        //   return Text('${snapshot.data}',style: const TextStyle(
-        //     fontSize: 50
-        //   ),);
-        //  }),
           const SizedBox(
             height: 25,
           ),

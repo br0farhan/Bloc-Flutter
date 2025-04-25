@@ -1,3 +1,4 @@
+import 'package:bloc_flutter/features/basic/Bloc%20Provider/bloc/counter_provider.dart';
 import 'package:bloc_flutter/features/basic/basic_pages.dart';
 import 'package:bloc_flutter/home/comingsoon.dart';
 import 'package:flutter/material.dart';
@@ -44,8 +45,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(title: const Text('Home - Categories')),
       body: BlocProvider(
         create: (context) => CategoryBloc()..add(LoadCategories()),
-        child:
-         BlocBuilder<CategoryBloc, CategoryState>(
+        child: BlocBuilder<CategoryBloc, CategoryState>(
           builder: (context, state) {
             if (state is CategoryLoading) {
               return const Center(child: CircularProgressIndicator());
@@ -65,10 +65,15 @@ class HomePage extends StatelessWidget {
                       Widget page;
                       switch (category) {
                         case 'Basic':
-                          page = const BasicPages();
+                          page = BlocProvider(
+                            create: (context) => CounterProvider(),
+                            child: const BasicPages(),
+                          );
                           break;
                         case 'Cooming Soon':
-                          page = const Comingsoon(category: 'Coming Soon',);
+                          page = const Comingsoon(
+                            category: 'Coming Soon',
+                          );
                           break;
                         default:
                           page = Comingsoon(category: category);
@@ -78,8 +83,7 @@ class HomePage extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => page),
                       );
                     },
-                    child:
-                     Card(
+                    child: Card(
                       elevation: 4,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),

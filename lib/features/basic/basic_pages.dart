@@ -1,7 +1,10 @@
 import 'package:bloc_flutter/features/basic/Bloc%20Builder/page/blocBulider_basic.dart';
 import 'package:bloc_flutter/features/basic/Bloc%20Consumer/page/blocConsumer_basic.dart';
 import 'package:bloc_flutter/features/basic/Bloc%20Listener/page/blocListener_basic.dart';
-import 'package:bloc_flutter/features/basic/counter/presentation/blocs/counter.dart';
+import 'package:bloc_flutter/features/basic/Bloc%20Provider/bloc/counter_provider.dart';
+import 'package:bloc_flutter/features/basic/Bloc%20Provider/page/blocProvider_basic.dart';
+import 'package:bloc_flutter/features/basic/Depedecny%20Injection/bloc/counter_depedency_bloc.dart';
+import 'package:bloc_flutter/features/basic/Depedecny%20Injection/page/depedency_injection_basic.dart';
 import 'package:bloc_flutter/features/basic/counter/presentation/pages/counter_page.dart';
 import 'package:bloc_flutter/features/basic/pattern/presentation/pages/pattern_page.dart';
 import 'package:bloc_flutter/features/basic/stream/stream.pages.dart';
@@ -35,7 +38,9 @@ class CategoryBasicBloc extends Bloc<CategoryBasicEvent, CategoryBasicState> {
         'Stream',
         'Bloc Builder',
         'Bloc Listener',
-        'Bloc Consumer'
+        'Bloc Consumer',
+        'Bloc Provider',
+        'Depedency'
       ]));
     });
   }
@@ -72,25 +77,35 @@ class BasicPages extends StatelessWidget {
                       Widget page;
                       switch (category) {
                         case 'Counter':
-                          page = BlocProvider(
-                            create: (context) => CounterBloc(),
-                            child: const CounterPage(),
-                          );
+                          page = const CounterPage();
                           break;
                         case 'Stream':
-                          page = const StreamPages();
+                          page = StreamControlledPage();
                           break;
                         case 'Pattern':
                           page = const PatternPage();
                           break;
                         case 'Bloc Builder':
-                          page = BlocbuliderBasic();
+                          page = const BlocBuilderBasic();
                           break;
                         case 'Bloc Listener':
-                          page = BlocListenerBasic();
+                          page = const BlocListenerBasic();
                           break;
                         case 'Bloc Consumer':
                           page = BlocconsumerBasic();
+                          break;
+                        case 'Bloc Provider':
+                          page = BlocProvider(
+                            create: (context) => CounterProvider(),
+                            child: const BlocproviderBasic(),
+                          );
+
+                          break;
+                        case 'Depedency':
+                          page = BlocProvider(
+                            create: (context) => CounterDepedencyBloc(),
+                            child: const DepedencyInjectionBasic(),
+                          );
                           break;
                         default:
                           page = const BasicPages();

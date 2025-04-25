@@ -8,6 +8,7 @@
 >> BlocProvider
 >> BlocBuilder
 >> BlocListener
+>> BlocConsumer
 >> Konsep dasar stream
 >> Penggunaan stream
 >> Konsep dasar cubit

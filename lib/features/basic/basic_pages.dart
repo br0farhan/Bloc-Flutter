@@ -5,7 +5,6 @@ import 'package:bloc_flutter/features/basic/Bloc%20Provider/bloc/counter_provide
 import 'package:bloc_flutter/features/basic/Bloc%20Provider/page/blocProvider_basic.dart';
 import 'package:bloc_flutter/features/basic/Depedecny%20Injection/bloc/counter_depedency_bloc.dart';
 import 'package:bloc_flutter/features/basic/Depedecny%20Injection/page/depedency_injection_basic.dart';
-import 'package:bloc_flutter/features/basic/counter/presentation/pages/counter_page.dart';
 import 'package:bloc_flutter/features/basic/pattern/presentation/pages/pattern_page.dart';
 import 'package:bloc_flutter/features/basic/stream/stream.pages.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +32,6 @@ class CategoryBasicBloc extends Bloc<CategoryBasicEvent, CategoryBasicState> {
       // Simulate fetching categories
       await Future.delayed(const Duration(seconds: 1)); // Tunggu 1 detik
       emit(CategoryLoaded([
-        'Counter',
         'Pattern',
         'Stream',
         'Bloc Builder',
@@ -76,11 +74,8 @@ class BasicPages extends StatelessWidget {
                       String category = state.categories[index];
                       Widget page;
                       switch (category) {
-                        case 'Counter':
-                          page = const CounterPage();
-                          break;
                         case 'Stream':
-                          page = StreamControlledPage();
+                          page = const StreamControlledPage();
                           break;
                         case 'Pattern':
                           page = const PatternPage();
@@ -96,7 +91,7 @@ class BasicPages extends StatelessWidget {
                           break;
                         case 'Bloc Provider':
                           page = BlocProvider(
-                            create: (context) => CounterProvider(),
+                            create: (context) => CounterProviderBloc(),
                             child: const BlocproviderBasic(),
                           );
 

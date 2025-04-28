@@ -66,7 +66,7 @@ class HomePage extends StatelessWidget {
                       switch (category) {
                         case 'Basic':
                           page = BlocProvider(
-                            create: (context) => CounterProvider(),
+                            create: (context) => CategoryBasicBloc(),
                             child: const BasicPages(),
                           );
                           break;

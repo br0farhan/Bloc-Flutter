@@ -7,20 +7,23 @@ class DataWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CounterProvider, int>(
-      builder: (context, state) {
-        return Container(
-          height: 100,
-          width: 200,
-          color: Colors.red,
-          child: Center(
-            child: Text(
+    CounterProviderBloc counterDepedency =
+        BlocProvider.of<CounterProviderBloc>(context);
+    return Container(
+      height: 100,
+      width: 200,
+      color: Colors.red,
+      child: Center(
+        child: BlocBuilder(
+          bloc: counterDepedency,
+          builder: (context, state) {
+            return Text(
               '$state',
               style: const TextStyle(color: Colors.white, fontSize: 50),
-            ),
-          ),
-        );
-      },
+            );
+          },
+        ),
+      ),
     );
   }
 }

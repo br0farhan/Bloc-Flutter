@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CounterProvider extends Cubit<int> {
-  CounterProvider({this.init = 0}) : super(init);
+class CounterProviderBloc extends Cubit<int> {
+  CounterProviderBloc({this.init = 0}) : super(init);
 
   int init;
 

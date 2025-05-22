@@ -94,7 +94,6 @@ class BasicPages extends StatelessWidget {
                             create: (context) => CounterProviderBloc(),
                             child: const BlocproviderBasic(),
                           );
-
                           break;
                         case 'Depedency':
                           page = BlocProvider(

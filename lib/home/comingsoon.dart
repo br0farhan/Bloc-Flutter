@@ -6,11 +6,11 @@ class Comingsoon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  Scaffold(
       body: Center(
         child: Text(
-          'Coming Soon',
-          style: TextStyle(fontSize: 24),
+          '${category} Coming Soon',
+          style: const TextStyle(fontSize: 24),
         ),
       ),
     );

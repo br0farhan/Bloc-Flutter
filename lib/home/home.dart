@@ -1,6 +1,4 @@
-import 'package:bloc_flutter/features/basic/Bloc%20Provider/bloc/counter_provider.dart';
-import 'package:bloc_flutter/features/basic/basic_pages.dart';
-import 'package:bloc_flutter/home/comingsoon.dart';
+import 'package:bloc_flutter/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,7 +25,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
       await Future.delayed(const Duration(seconds: 1)); // Tunggu 1 detik
       emit(CategoryLoaded([
         'Basic',
-        'Business',
+        'Al-quran',
         'Health',
         'Education',
         'Sports',
@@ -62,26 +60,24 @@ class HomePage extends StatelessWidget {
                   return GestureDetector(
                     onTap: () {
                       String category = state.categories[index];
-                      Widget page;
+
                       switch (category) {
                         case 'Basic':
-                          page = BlocProvider(
-                            create: (context) => CategoryBasicBloc(),
-                            child: const BasicPages(),
-                          );
+                          Navigator.pushNamed(context, AppRoutes.basic);
                           break;
-                        case 'Cooming Soon':
-                          page = const Comingsoon(
-                            category: 'Coming Soon',
+                        case 'Al-quran':
+                          Navigator.pushNamed(
+                            context,
+                            AppRoutes.splash,
                           );
                           break;
                         default:
-                          page = Comingsoon(category: category);
+                          Navigator.pushNamed(
+                            context,
+                            AppRoutes.comingSoon,
+                            arguments: category,
+                          );
                       }
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => page),
-                      );
                     },
                     child: Card(
                       elevation: 4,

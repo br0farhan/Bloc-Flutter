@@ -1,6 +1,5 @@
 import 'package:bloc_flutter/features/basic/Bloc%20Provider/bloc/counter_provider.dart';
-import 'package:bloc_flutter/features/basic/Depedecny%20Injection/bloc/counter_depedency_bloc.dart';
-import 'package:bloc_flutter/home/home.dart';
+import 'package:bloc_flutter/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,16 +12,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: MultiBlocProvider(
+    return MultiBlocProvider(
       providers: [
-
         BlocProvider<CounterProviderBloc>(
-            create: (context) => CounterProviderBloc()),
-        BlocProvider<CounterDepedencyBloc>(
-            create: (context) => CounterDepedencyBloc()),
+          create: (context) => CounterProviderBloc(),
+        ),
       ],
-      child: HomePage(),
-    ));
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: AppRoutes.home,
+        onGenerateRoute: AppRoutes.generateRoute,
+      ),
+    );
   }
 }
